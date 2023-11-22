@@ -1,0 +1,28 @@
+syntax = "proto2";
+
+package Exchange;
+
+option optimize_for = LITE_RUNTIME;
+
+// Сообщение от клиента серверу
+message ClientToServer
+{
+    // 1. Идентификаторы блоков (sha1, 128 байт)
+    repeated string hashes              = 1;
+}
+
+// Хэш и блок данных, соответствующий ему
+message HashAndBlock
+{
+    // 1. Идентификатор блока (sha1, 128 байт)
+    required string hash                = 1;
+    // 2. Блок данных
+    required bytes block               = 2;
+}
+
+// Сообщение от сервера клиенту
+message ServerToClient
+{
+    // 1. Хэш и блок данных, соответствующий ему
+    repeated HashAndBlock hash_and_block              = 1;
+}
